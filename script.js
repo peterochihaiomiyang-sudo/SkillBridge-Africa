@@ -1,55 +1,63 @@
-// SkillBridge Africa JavaScript
 
-console.log("Welcome to SkillBridge Africa!");
+// SkillBridge Africa JavaScript
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Registration form
-    const skillsForm = document.getElementById("skillsForm");
-    const formMessage = document.getElementById("formMessage");
+    // Navigation
+    const navLinks = document.querySelectorAll(".nav-links a");
 
-    if (skillsForm && formMessage) {
-        skillsForm.addEventListener("submit", function (event) {
-            event.preventDefault();
+    navLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+            console.log("Navigating to:", link.textContent);
+        });
+    });
 
-            const fullName = document.getElementById("fullName").value;
+    // Join Us button
+    const joinButton = document.querySelector(".join-btn");
 
-            formMessage.textContent =
-                "Thank you, " + fullName +
-                "! Your profile has been received successfully.";
-
-            skillsForm.reset();
+    if (joinButton) {
+        joinButton.addEventListener("click", function () {
+            console.log("Welcome to SkillBridge Africa!");
         });
     }
 
-    // Opportunity filters
-    const filterButtons = document.querySelectorAll(".filter-button");
-    const opportunityCards = document.querySelectorAll(".opportunity-card");
+    // Project cards animation
+    const cards = document.querySelectorAll(".card");
 
-    filterButtons.forEach(function (button) {
+    cards.forEach(function (card) {
 
-        button.addEventListener("click", function () {
+        card.addEventListener("mouseenter", function () {
+            card.style.borderBottomColor = "#075c3b";
+        });
 
-            const selectedCategory = button.dataset.filter;
-
-            filterButtons.forEach(function (item) {
-                item.classList.remove("active");
-            });
-
-            button.classList.add("active");
-
-            opportunityCards.forEach(function (card) {
-
-                const matches =
-                    selectedCategory === "all" ||
-                    card.dataset.category === selectedCategory;
-
-                card.style.display = matches ? "block" : "none";
-
-            });
-
+        card.addEventListener("mouseleave", function () {
+            card.style.borderBottomColor = "#d9a32d";
         });
 
     });
+
+    // Registration Form
+    const registrationForm =
+        document.getElementById("registrationForm");
+
+    const formMessage =
+        document.getElementById("formMessage");
+
+    if (registrationForm && formMessage) {
+
+        registrationForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            formMessage.textContent =
+                "Thank you! Your demonstration registration was successful. No information has been sent or stored.";
+
+            registrationForm.reset();
+
+        });
+
+    }
+
+    console.log("SkillBridge Africa website loaded successfully!");
 
 });
