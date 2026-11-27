@@ -1,171 +1,988 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillBridge Africa | Unlocking Displaced Talent</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillBridge Africa | Track 1: Credential Recognition &amp; Skills Validation</title>
+  <meta name="description" content="SkillBridge Africa — ILO Mini-Hackathon Track 1 prototype for refugee credential recognition, practical skills validation, and bridging pathways across Africa." />
+  <style>
+    :root {
+      --bg: #f7f9f8;
+      --surface: #ffffff;
+      --ink: #14261e;
+      --muted: #4a5d54;
+      --border: #dde6e0;
+      --green: #075c3b;
+      --green-dark: #06452f;
+      --green-soft: #eaf1ec;
+      --gold: #d9a32d;
+      --gold-soft: #fff9eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 84px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Bar */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 64px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--green);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--green);
+      color: #ffffff;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-dark);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+
+    .kicker {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3.8vw, 3.25rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+
+    .hero p.lead {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-panel {
+      background: var(--green-dark);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-panel h2 {
+      font-size: 1.125rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .hero-panel ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: #e4efe9;
+    }
+
+    .hero-panel .note {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.8rem;
+      color: #cbe0d5;
+    }
+
+    .summary-strip {
+      margin-top: 44px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .summary-strip .idx {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .summary-strip p {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    .section {
+      padding: 68px 0;
+    }
+
+    .section-alt {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      font-size: 1.0625rem;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-line {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    /* Interactive 6-Step Validator */
+    .pathway-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .step-btn {
+      text-align: left;
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font: inherit;
+      color: var(--ink);
+    }
+
+    .step-btn[aria-selected="true"] {
+      background: var(--green);
+      border-color: var(--green);
+      color: #ffffff;
+    }
+
+    .step-num {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .step-btn[aria-selected="true"] .step-num {
+      color: var(--gold);
+    }
+
+    .step-detail {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .step-detail h3 {
+      font-size: 1.375rem;
+      margin: 6px 0 12px;
+    }
+
+    .step-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 28px;
+    }
+
+    .filter-btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .filter-btn[aria-pressed="true"] {
+      background: var(--green);
+      color: #ffffff;
+    }
+
+    /* Form */
+    .form-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd8d0;
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--ink);
+      font: inherit;
+      font-size: 0.9rem;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: 2px solid var(--green);
+      outline-offset: 1px;
+      background: var(--surface);
+    }
+
+    .privacy-box {
+      background: var(--gold-soft);
+      border: 1px solid #e8d5a7;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: #5c4918;
+      margin-top: 20px;
+    }
+
+    .result-card {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background: var(--green-dark);
+      color: #ffffff;
+      display: none;
+    }
+
+    .result-card.visible {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: #063d2b;
+      color: #dcebe3;
+      padding: 36px 0;
+      font-size: 0.85rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .pathway-grid,
+      .form-layout,
+      .grid-3,
+      .summary-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+  </style>
 </head>
 <body>
-
-<header>
-    <nav class="navbar">
-        <h2 class="logo">SkillBridge Africa</h2>
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="#home" class="brand">SkillBridge Africa</a>
+      <nav aria-label="Primary navigation">
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#project">Our Project</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#verification">Verification</a></li>
-            <li><a href="#opportunities">Opportunities</a></li>
+          <li><a href="#pillars">Track 1 Pillars</a></li>
+          <li><a href="#pathway">6-Step Validation</a></li>
+          <li><a href="#assessments">Assessments &amp; Bridging</a></li>
+          <li><a href="#sdgs">SDGs 4 &amp; 8</a></li>
         </ul>
-        <a href="#registration" class="join-btn">Join Us</a>
-    </nav>
-</header>
-
-<section id="home" class="hero">
-    <div class="hero-content">
-        <p class="tagline">TALENT HAS NO BORDERS</p>
-        <h1>Unlocking Talent.<br>Creating Opportunities.</h1>
-        <p>Empowering refugees through skills recognition, education, mentorship and career opportunities across Africa.</p>
-        <a href="#registration" class="main-btn">Get Started</a>
+      </nav>
+      <a href="#profile" class="btn-primary">Register Skills</a>
     </div>
-</section>
+  </header>
 
-<section id="about" class="section">
-    <h2>About SkillBridge Africa</h2>
-    <p>We believe every skilled person deserves an opportunity to contribute, grow and succeed. SkillBridge Africa helps refugees demonstrate their abilities and connect with opportunities that support their future.</p>
-</section>
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <p class="kicker">ILO Mini-Hackathon · Selected Track 01 · Credential Recognition &amp; Skills Validation</p>
+            <h1>Verify what displaced professionals can do, even when documents are missing.</h1>
+            <p class="lead">
+              SkillBridge Africa helps skilled refugees map foreign qualifications, package alternative work evidence, and reach partner-led competency assessments and funded bridging pathways across Africa.
+            </p>
+            <div class="hero-actions">
+              <a href="#profile" class="btn-primary">Build Track 1 Skills Profile</a>
+              <a href="#pathway" class="btn-secondary">Explore 6-Step Validation</a>
+            </div>
+          </div>
 
-<section id="project" class="section">
-    <h2>Our Project</h2>
-    <p>Our project focuses on unlocking displaced talent by addressing challenges in education, professional qualifications and skills recognition.</p>
-    <div class="cards">
-        <div class="card">
-            <h3>Credential Recognition</h3>
-            <p>Helping skilled refugees present their academic and professional qualifications.</p>
+          <aside class="hero-panel" aria-label="Track 1 scope and governance">
+            <div>
+              <h2>Track 1 Focus · SDGs 4 &amp; 8</h2>
+              <ul>
+                <li>01. Foreign qualification mapping &amp; issuing-institution dossiers</li>
+                <li>02. Practical competency assessments &amp; portfolio review when transcripts are lost</li>
+                <li>03. Targeted bridging modules &amp; re-certification fee-waiver pathways</li>
+              </ul>
+            </div>
+            <p class="note">
+              Governance boundary: SkillBridge Africa organises skills evidence and guides partner referrals; recognised assessment bodies conduct official validation.
+            </p>
+          </aside>
         </div>
-        <div class="card">
-            <h3>Skills Validation</h3>
-            <p>Supporting practical ways to demonstrate knowledge, experience and abilities.</p>
+
+        <div class="summary-strip">
+          <div>
+            <span class="idx">01. Credential Mapping</span>
+            <p>Structure degrees, diplomas, and partial records for cross-border review.</p>
+          </div>
+          <div>
+            <span class="idx">02. Practical Validation</span>
+            <p>Bench tests, work samples, and structured skills interviews with assessors.</p>
+          </div>
+          <div>
+            <span class="idx">03. Bridging &amp; Stipends</span>
+            <p>Short local compliance courses and assessment fee-waiver matching.</p>
+          </div>
+          <div>
+            <span class="idx">04. Decent Work Alignment</span>
+            <p>Advancing SDG 4 (Quality Education) and SDG 8 (Decent Work).</p>
+          </div>
         </div>
-        <div class="card">
-            <h3>Career Opportunities</h3>
-            <p>Connecting talented people with pathways to employment and further learning.</p>
+      </div>
+    </section>
+
+    <section id="pillars" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="kicker">Why Track 1 Matters</p>
+          <h2>Ending credential brain waste without lowering quality standards</h2>
+          <p>Skilled refugees often carry years of technical, healthcare, or engineering expertise that goes unrecognised because certificates are unavailable or unfamiliar to local reviewers.</p>
         </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <p class="meta-line">Pillar 01 · Qualification Clarity</p>
+            <h3>Foreign Credential Mapping</h3>
+            <p>Captures issuing institution, field of study, and syllabus details alongside secondary proof like supervisor letters or work badges.</p>
+          </article>
+
+          <article class="card">
+            <p class="meta-line">Pillar 02 · Competency Proof</p>
+            <h3>Hands-On Skills Validation</h3>
+            <p>Routes candidates without full paperwork to supervised bench tests, code/portfolio reviews, and structured assessor interviews.</p>
+          </article>
+
+          <article class="card">
+            <p class="meta-line">Pillar 03 · Bridging Support</p>
+            <h3>Targeted Re-Certification</h3>
+            <p>Identifies exact local code or regulatory gaps and connects candidates to short bridging modules and exam fee-waiver partners.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pathway" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <p class="kicker">Track 1 Workflow · Electrical Technician Case Study</p>
+          <h2>Six-step validation journey from profile to recognised competency</h2>
+          <p>Select any stage below to see how a displaced technician with partial paperwork moves through partner-led validation.</p>
+        </div>
+
+        <div class="pathway-grid">
+          <div class="step-list" role="tablist" aria-label="Validation pathway stages">
+            <button type="button" class="step-btn" role="tab" aria-selected="true" data-step="0">
+              <span class="step-num">01</span>
+              <span>Create safe basic profile</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" data-step="1">
+              <span class="step-num">02</span>
+              <span>Document trade &amp; work history</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" data-step="2">
+              <span class="step-num">03</span>
+              <span>Package available evidence</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" data-step="3">
+              <span class="step-num">04</span>
+              <span>Partner practical bench assessment</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" data-step="4">
+              <span class="step-num">05</span>
+              <span>Complete targeted bridging module</span>
+            </button>
+            <button type="button" class="step-btn" role="tab" aria-selected="false" data-step="5">
+              <span class="step-num">06</span>
+              <span>Receive recognised validation record</span>
+            </button>
+          </div>
+
+          <div class="step-detail" id="stepDetailPanel" aria-live="polite">
+            <p class="meta-line" id="stepStageLabel">Stage 01 of 06</p>
+            <h3 id="stepTitle">Create safe basic profile</h3>
+            <p id="stepDescription">
+              Candidate registers host location, preferred contact channel, and consent preferences without uploading sensitive identity documents upfront.
+            </p>
+            <div class="step-box">
+              <strong style="font-size: 0.8rem; color: var(--green);">Evidence &amp; Partner Action</strong>
+              <p id="stepPartner" style="font-size: 0.875rem; margin-top: 6px; color: var(--muted);">
+                SkillBridge onboarding clarifies privacy rules and prepares the candidate dossier for Track 1 assessment routing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="assessments" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="kicker">Track 1 Demonstration Pathways</p>
+          <h2>Assessments, credential clinics &amp; funded bridging options</h2>
+          <p>Filter demonstration partner offerings supporting qualification recognition, practical competency tests, and re-certification.</p>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filter Track 1 pathways">
+          <button type="button" class="filter-btn" aria-pressed="true" data-filter="all">All Track 1</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="assessment">Practical Assessment</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="advisory">Credential Advisory</button>
+          <button type="button" class="filter-btn" aria-pressed="false" data-filter="bridging">Bridging &amp; Fee Waivers</button>
+        </div>
+
+        <div class="grid-3" id="opportunityGrid">
+          <article class="card" data-category="assessment">
+            <p class="meta-line">Practical Assessment · Nairobi, Kenya</p>
+            <h3>Solar PV &amp; LV Electrical Bench Test</h3>
+            <p>Two-day supervised wiring, multimeter fault-finding, and safety test for technicians lacking original transcripts.</p>
+          </article>
+
+          <article class="card" data-category="advisory">
+            <p class="meta-line">Credential Advisory · Kigali, Rwanda</p>
+            <h3>Foreign Healthcare Qualification Clinic</h3>
+            <p>Maps foreign nursing and lab syllabi for national council equivalency review without requiring original stamped envelopes upfront.</p>
+          </article>
+
+          <article class="card" data-category="bridging">
+            <p class="meta-line">Bridging &amp; Fee Waivers · Regional &amp; Remote</p>
+            <h3>Local Standards Bridging &amp; Exam Stipend</h3>
+            <p>Covers short regulatory compliance modules and assessment fee waivers so candidates complete local re-certification.</p>
+          </article>
+
+          <article class="card" data-category="assessment">
+            <p class="meta-line">Practical Assessment · Kampala, Uganda</p>
+            <h3>IT Support &amp; Code Portfolio Review</h3>
+            <p>Structured 45-minute technical troubleshooting interview and code review conducted with regional tech hub assessors.</p>
+          </article>
+
+          <article class="card" data-category="bridging">
+            <p class="meta-line">Bridging &amp; Fee Waivers · Accra, Ghana</p>
+            <h3>Hospitality Hygiene &amp; Trade Certification</h3>
+            <p>Short food-safety refresher paired with a one-day practical kitchen skills demonstration for displaced culinary workers.</p>
+          </article>
+
+          <article class="card" data-category="advisory">
+            <p class="meta-line">Credential Advisory · Pan-African</p>
+            <h3>Alternative Evidence &amp; Reference Dossier</h3>
+            <p>Structured checklist helping candidates gather supervisor attestations, project photos, and vocational badges into one portable file.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile" class="section section-alt">
+      <div class="container">
+        <div class="form-layout">
+          <div>
+            <p class="kicker">Track 1 Interactive Demonstration</p>
+            <h2 style="font-size: 2rem; margin-bottom: 12px;">Build your Track 1 validation profile</h2>
+            <p style="color: var(--muted); margin-bottom: 18px;">
+              Enter sample candidate details to preview whether Track 1 recommends direct credential equivalency review, mixed-evidence advisory, or practical competency testing.
+            </p>
+            <button type="button" id="fillDemoBtn" class="btn-secondary">Fill Sample Technician Profile</button>
+
+            <div class="privacy-box">
+              <strong>Privacy Notice:</strong> This is a front-end demonstration form for the ILO Mini-Hackathon. Do not submit real personal identity numbers or confidential documents. Data stays in your browser and is not transmitted or stored.
+            </div>
+
+            <div id="profileResult" class="result-card" role="status" aria-live="polite">
+              <p style="font-size: 0.75rem; color: var(--gold); font-weight: 700;">TRACK 1 PATHWAY RECOMMENDATION</p>
+              <h3 id="resultName" style="margin: 6px 0 4px;"></h3>
+              <p id="resultMeta" style="font-size: 0.85rem; color: #cbe0d5; margin-bottom: 12px;"></p>
+              <p id="resultRoute" style="font-size: 0.9rem; font-weight: 600;"></p>
+            </div>
+          </div>
+
+          <form id="track1Form" class="form-card" novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="fullName">Full Name (or Alias)</label>
+                <input id="fullName" type="text" required placeholder="e.g. Samuel K." />
+              </div>
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" required placeholder="demo@example.org" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="country">Host Country</label>
+                <input id="country" type="text" required placeholder="e.g. Kenya" />
+              </div>
+              <div class="field">
+                <label for="education">Highest Education</label>
+                <select id="education" required>
+                  <option value="">Select level</option>
+                  <option>Vocational Certificate</option>
+                  <option>Diploma</option>
+                  <option>Bachelor's Degree</option>
+                  <option>Master's Degree</option>
+                  <option>Workplace / Trade Trained</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="docStatus">Qualification Document Status</label>
+              <select id="docStatus" required>
+                <option value="">Select document availability</option>
+                <option value="available">Original documents available</option>
+                <option value="partial">Some records or copies available</option>
+                <option value="unavailable">Documents missing or unavailable</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="skills">Core Skills &amp; Trade Competencies</label>
+              <textarea id="skills" rows="3" required placeholder="Example: Commercial electrical wiring, solar PV maintenance..."></textarea>
+            </div>
+
+            <p id="formError" style="color: #991b1b; font-size: 0.85rem; margin-bottom: 12px; display: none;"></p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button type="submit" class="btn-primary" style="flex: 1;">Generate Track 1 Validation Route</button>
+              <button type="button" id="resetFormBtn" class="btn-secondary">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="sdgs" class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="kicker">Impact &amp; Evaluation Alignment</p>
+          <h2>Supporting SDG 4 (Quality Education) &amp; SDG 8 (Decent Work)</h2>
+          <p>Built by Peter Ochihai Omiyang for the ILO Mini-Hackathon (November 24–27, 2026) | Power Learn Project (PLP).</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <p class="meta-line">SDG 4 · Quality Education</p>
+            <h3>Equitable Bridging Access</h3>
+            <p>Connects displaced learners with targeted bridging courses and re-certification stipends instead of restarting degrees from zero.</p>
+          </article>
+          <article class="card">
+            <p class="meta-line">SDG 8 · Decent Work</p>
+            <h3>Productive Economic Inclusion</h3>
+            <p>Turns overlooked skills into partner-verified competencies that employers and training institutions can trust.</p>
+          </article>
+          <article class="card">
+            <p class="meta-line">SDGs 10, 16 &amp; 17</p>
+            <h3>Transparent Partner Governance</h3>
+            <p>Reduces inequality through accountable referral workflows uniting refugees, educators, assessors, and employers.</p>
+          </article>
+        </div>
+
+        <div class="card" style="margin-top: 28px;">
+          <p class="meta-line">ILO Mini-Hackathon Benchmarks &amp; Timeline · Nov 24–27, 2026</p>
+          <h3 style="margin-bottom: 12px;">Five Evaluation Criteria Alignment</h3>
+          <div class="grid-3" style="gap: 16px;">
+            <div>
+              <strong style="font-size: 0.85rem;">01. Credential &amp; Skills Verification</strong>
+              <p style="font-size: 0.82rem; margin-top: 4px;">Practical bench tests and bridging steps when paper records are absent.</p>
+            </div>
+            <div>
+              <strong style="font-size: 0.85rem;">02. Access &amp; Compliance Readiness</strong>
+              <p style="font-size: 0.82rem; margin-top: 4px;">Prepares partner-verified dossiers ready for employer onboarding.</p>
+            </div>
+            <div>
+              <strong style="font-size: 0.85rem;">03. Practical &amp; Market Fit</strong>
+              <p style="font-size: 0.82rem; margin-top: 4px;">Aligned with solar, electrical, IT, healthcare, and hospitality roles.</p>
+            </div>
+            <div>
+              <strong style="font-size: 0.85rem;">04. Social &amp; SDG Impact</strong>
+              <p style="font-size: 0.82rem; margin-top: 4px;">Directly advances SDG 4, SDG 8, SDG 10, SDG 16, and SDG 17.</p>
+            </div>
+            <div>
+              <strong style="font-size: 0.85rem;">05. Sustainability &amp; Scalability</strong>
+              <p style="font-size: 0.82rem; margin-top: 4px;">Repeatable partner rubric workflow across African host hubs.</p>
+            </div>
+            <div>
+              <strong style="font-size: 0.85rem;">Submission Milestone</strong>
+              <p style="font-size: 0.82rem; margin-top: 4px;">Info Session Nov 24 · Build Nov 25–26 · Submit Nov 27, 2026.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>SkillBridge Africa — Track 1: Credential Recognition &amp; Skills Validation</strong>
+        <p style="margin-top: 4px; color: #9ab5a6;">ILO Mini-Hackathon Prototype · Talent Has No Borders</p>
+      </div>
+      <div>
+        <a href="mailto:info@skillbridgeafrica.org" style="color: var(--gold); text-decoration: none;">info@skillbridgeafrica.org</a>
+      </div>
     </div>
-</section>
+  </footer>
 
-<section id="skills" class="section">
-    <h2>Discover Your Skills</h2>
-    <p>Your skills matter, whether they come from formal education, professional experience, vocational training or practical work.</p>
-</section>
+  <script>
+    (function () {
+      var steps = [
+        {
+          stage: "Stage 01 of 06",
+          title: "Create safe basic profile",
+          desc: "Candidate registers host location, preferred contact channel, and consent preferences without uploading sensitive identity documents upfront.",
+          partner: "SkillBridge onboarding clarifies privacy rules and prepares the candidate dossier for Track 1 assessment routing."
+        },
+        {
+          stage: "Stage 02 of 06",
+          title: "Document trade & work history",
+          desc: "Candidate lists years of hands-on experience, equipment mastered, and prior roles across commercial or community settings.",
+          partner: "Maps self-reported experience against host-country vocational and professional competency frameworks."
+        },
+        {
+          stage: "Stage 03 of 06",
+          title: "Package available evidence",
+          desc: "Selects any available certificates, installation photos, code samples, or former supervisor contacts instead of stalling on missing transcripts.",
+          partner: "Advisory partner flags missing formal papers for alternative practical competency validation."
+        },
+        {
+          stage: "Stage 04 of 06",
+          title: "Partner practical bench assessment",
+          desc: "Candidate completes a supervised practical wiring test, structured technical interview, or portfolio evaluation at a partner hub.",
+          partner: "Accredited vocational assessment partner conducts hands-on testing and records objective rubric results."
+        },
+        {
+          stage: "Stage 05 of 06",
+          title: "Complete targeted bridging module",
+          desc: "Where minor host-country code or licensing gaps appear, candidate receives guidance on a short bridging course and fee-waiver support.",
+          partner: "Training institution schedules focused upskilling without repeating full multi-year qualifications."
+        },
+        {
+          stage: "Stage 06 of 06",
+          title: "Receive recognised validation record",
+          desc: "Candidate shares a partner-backed competency summary with hiring employers, fellowships, or national licensing bodies.",
+          partner: "Recognised partner issues official validation record; SkillBridge facilitates opportunity matching."
+        }
+      ];
 
-<section id="verification" class="section">
-    <h2>Skills Verification</h2>
-    <p>We aim to create pathways that help refugees demonstrate their qualifications and practical abilities through trusted assessment processes.</p>
-</section>
+      var stepButtons = document.querySelectorAll(".step-btn");
+      var stepStageLabel = document.getElementById("stepStageLabel");
+      var stepTitle = document.getElementById("stepTitle");
+      var stepDescription = document.getElementById("stepDescription");
+      var stepPartner = document.getElementById("stepPartner");
 
-<section id="opportunities" class="section">
-    <h2>Explore Opportunities</h2>
-    <p>Discover pathways to education, mentorship, professional development and employment.</p>
-</section>
+      stepButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var idx = Number(btn.getAttribute("data-step"));
+          stepButtons.forEach(function (b) {
+            b.setAttribute("aria-selected", b === btn ? "true" : "false");
+          });
+          var item = steps[idx];
+          if (item) {
+            stepStageLabel.textContent = item.stage;
+            stepTitle.textContent = item.title;
+            stepDescription.textContent = item.desc;
+            stepPartner.textContent = item.partner;
+          }
+        });
+      });
 
-<section id="registration" class="section registration">
-    <h2>Register Your Skills</h2>
-    <p>Your knowledge, education and experience matter. Create a demonstration skills profile to explore possible opportunities.</p>
+      var filterButtons = document.querySelectorAll(".filter-btn");
+      var cards = document.querySelectorAll("#opportunityGrid .card");
+      filterButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var filter = btn.getAttribute("data-filter");
+          filterButtons.forEach(function (b) {
+            b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+          });
+          cards.forEach(function (card) {
+            var cat = card.getAttribute("data-category");
+            card.style.display = filter === "all" || cat === filter ? "block" : "none";
+          });
+        });
+      });
 
-    <form id="registrationForm" class="registration-form">
-        <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Enter your name" required>
-        </div>
+      var form = document.getElementById("track1Form");
+      var fillBtn = document.getElementById("fillDemoBtn");
+      var formError = document.getElementById("formError");
+      var resultBox = document.getElementById("profileResult");
 
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-        </div>
+      if (fillBtn) {
+        fillBtn.addEventListener("click", function () {
+          document.getElementById("fullName").value = "Samuel K. (Demo)";
+          document.getElementById("email").value = "demo@example.org";
+          document.getElementById("country").value = "Kenya";
+          document.getElementById("education").value = "Vocational Certificate";
+          document.getElementById("docStatus").value = "partial";
+          document.getElementById("skills").value = "3-phase commercial wiring, multimeter diagnostics, solar inverter setup";
+          formError.style.display = "none";
+        });
+      }
 
-        <div class="form-group">
-            <label for="country">Country of Residence</label>
-            <input type="text" id="country" name="country" placeholder="Enter your country" required>
-        </div>
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = document.getElementById("fullName").value.trim();
+          var email = document.getElementById("email").value.trim();
+          var country = document.getElementById("country").value.trim();
+          var education = document.getElementById("education").value;
+          var docStatus = document.getElementById("docStatus").value;
+          var skills = document.getElementById("skills").value.trim();
 
-        <div class="form-group">
-            <label for="education">Education Level</label>
-            <select id="education" name="education" required>
-                <option value="">Select education level</option>
-                <option>Secondary School</option>
-                <option>Certificate</option>
-                <option>Diploma</option>
-                <option>Bachelor's Degree</option>
-                <option>Master's Degree</option>
-                <option>Doctorate</option>
-                <option>Other</option>
-            </select>
-        </div>
+          if (!name || !email || email.indexOf("@") === -1 || !country || !education || !docStatus || !skills) {
+            formError.textContent = "Please complete all fields with a valid demonstration email.";
+            formError.style.display = "block";
+            return;
+          }
 
-        <div class="form-group">
-            <label for="qualificationStatus">Qualification Documents</label>
-            <select id="qualificationStatus" name="qualificationStatus" required>
-                <option value="">Select document status</option>
-                <option>Documents available</option>
-                <option>Some documents available</option>
-                <option>Documents unavailable</option>
-                <option>Qualification not formally documented</option>
-            </select>
-        </div>
+          formError.style.display = "none";
+          var routeText = "Direct Cross-Border Credential Equivalency Referral with recognised assessment partner.";
+          if (docStatus === "unavailable") {
+            routeText = "Practical Competency Bench Test & Structured Skills Interview (no original paper transcript required upfront).";
+          } else if (docStatus === "partial") {
+            routeText = "Mixed Evidence Dossier + Practical Assessment & Targeted Local Bridging Advisory.";
+          }
 
-        <div class="form-group">
-            <label for="skills">Professional Skills</label>
-            <textarea id="skills" name="skills" rows="4" placeholder="Example: Programming, teaching, accounting..." required></textarea>
-        </div>
+          document.getElementById("resultName").textContent = name;
+          document.getElementById("resultMeta").textContent = country + " · " + education;
+          document.getElementById("resultRoute").textContent = "Recommended Track 1 Route: " + routeText;
+          resultBox.classList.add("visible");
+        });
+      }
 
-        <div class="form-group">
-            <label for="experience">Work Experience</label>
-            <textarea id="experience" name="experience" rows="4" placeholder="Describe previous work, training or experience." required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="interest">What Opportunity Interests You?</label>
-            <select id="interest" name="interest" required>
-                <option value="">Select an opportunity</option>
-                <option>Skills Assessment</option>
-                <option>Education and Training</option>
-                <option>Mentorship</option>
-                <option>Internship</option>
-                <option>Employment</option>
-                <option>Professional Certification</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="additionalInfo">Additional Information (Optional)</label>
-            <textarea id="additionalInfo" name="additionalInfo" rows="3" placeholder="Share anything else about your skills or goals."></textarea>
-        </div>
-
-        <button type="submit" class="main-btn">Submit Skills Profile</button>
-        <p id="formMessage" role="status" aria-live="polite"></p>
-    </form>
-
-    <p class="privacy-note">
-        Privacy notice: This is a demonstration form.
-        Do not enter real personal information or confidential documents.
-    </p>
-</section>
-
-<section id="contact" class="section contact">
-    <h2>Join SkillBridge Africa</h2>
-    <p>Together, we can build a future where talent has no borders and everyone has an opportunity to succeed.</p>
-    <a href="mailto:info@skillbridgeafrica.org" class="main-btn">Contact Us</a>
-</section>
-
-<footer>
-    <p>© 2026 SkillBridge Africa. Empowering Refugees Through Skills, Recognition and Opportunities.</p>
-    <p>Supporting SDGs 4, 8, 10, 16 and 17.</p>
-    <p>Unlocking Displaced Talent. Creating Opportunities.</p>
-</footer>
-
-<script src="script.js"></script>
+      var resetBtn = document.getElementById("resetFormBtn");
+      if (resetBtn && form) {
+        resetBtn.addEventListener("click", function () {
+          form.reset();
+          formError.style.display = "none";
+          resultBox.classList.remove("visible");
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
