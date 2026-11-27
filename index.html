@@ -70,7 +70,6 @@
         </p>
 
     </section>
-
     <!-- Project Section -->
     <section id="project" class="section">
 
@@ -151,41 +150,52 @@
     </section>
 
     <!-- Registration Section -->
-    <section id="registration" class="section registration">
+   <!-- Registration Section -->
+<section id="registration" class="section registration">
 
-        <h2>Register Your Skills</h2>
+    <h2>Register Your Skills</h2>
 
-        <p>
-            Share your education, experience and professional
-            skills with SkillBridge Africa.
-        </p>
+    <p>
+        Your knowledge, education and experience matter.
+        Create a skills profile to demonstrate your abilities
+        and explore possible opportunities.
+    </p>
 
-        <form id="registrationForm" class="registration-form">
+    <form id="registrationForm" class="registration-form">
 
+        <div class="form-group">
             <label for="fullName">Full Name</label>
             <input
                 type="text"
                 id="fullName"
-                placeholder="Enter your name"
+                placeholder="Enter your full name"
+                autocomplete="name"
                 required
             >
+        </div>
 
+        <div class="form-group">
             <label for="email">Email Address</label>
             <input
                 type="email"
                 id="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
+                autocomplete="email"
                 required
             >
+        </div>
 
-            <label for="country">Country of Origin</label>
+        <div class="form-group">
+            <label for="country">Country of Residence</label>
             <input
                 type="text"
                 id="country"
                 placeholder="Enter your country"
                 required
             >
+        </div>
 
+        <div class="form-group">
             <label for="education">Education Level</label>
             <select id="education" required>
                 <option value="">Select education level</option>
@@ -194,33 +204,86 @@
                 <option>Diploma</option>
                 <option>Bachelor's Degree</option>
                 <option>Master's Degree</option>
+                <option>Doctorate</option>
                 <option>Other</option>
             </select>
+        </div>
 
+        <div class="form-group">
+            <label for="qualificationStatus">
+                Qualification Documents
+            </label>
+
+            <select id="qualificationStatus" required>
+                <option value="">Select document status</option>
+                <option>Documents available</option>
+                <option>Some documents available</option>
+                <option>Documents unavailable</option>
+                <option>Qualification not formally documented</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="skills">Professional Skills</label>
             <textarea
                 id="skills"
-                placeholder="Describe your professional skills"
+                rows="4"
+                placeholder="Example: Programming, teaching, accounting, electrical work..."
                 required
             ></textarea>
+        </div>
 
+        <div class="form-group">
             <label for="experience">Work Experience</label>
             <textarea
                 id="experience"
-                placeholder="Describe your work experience"
+                rows="4"
+                placeholder="Describe your previous work, training or practical experience."
                 required
             ></textarea>
+        </div>
 
-            <button type="submit" class="main-btn">
-                Submit Registration
-            </button>
+        <div class="form-group">
+            <label for="interest">What Opportunity Interests You?</label>
 
-            <p id="formMessage" role="status"></p>
+            <select id="interest" required>
+                <option value="">Select an opportunity</option>
+                <option>Skills Assessment</option>
+                <option>Education and Training</option>
+                <option>Mentorship</option>
+                <option>Internship</option>
+                <option>Employment</option>
+                <option>Professional Certification</option>
+            </select>
+        </div>
 
-        </form>
+        <div class="form-group">
+            <label for="additionalInfo">
+                Additional Information (Optional)
+            </label>
 
-    </section>
+            <textarea
+                id="additionalInfo"
+                rows="3"
+                placeholder="Share anything else about your skills or goals."
+            ></textarea>
+        </div>
 
+        <button type="submit" class="main-btn">
+            Submit Skills Profile
+        </button>
+
+        <p id="formMessage" role="status" aria-live="polite"></p>
+
+    </form>
+
+    <p class="privacy-note">
+        Privacy notice: This is a demonstration form.
+        Information entered is not securely stored or transmitted.
+        Do not enter real personal information or upload confidential documents.
+    </p>
+
+</section>
     <!-- Contact Section -->
     <section id="contact" class="section contact">
 

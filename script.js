@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".card");
 
     cards.forEach(function (card) {
-
         card.addEventListener("mouseenter", function () {
             card.style.borderBottomColor = "#075c3b";
         });
@@ -33,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
         card.addEventListener("mouseleave", function () {
             card.style.borderBottomColor = "#d9a32d";
         });
-
     });
 
     // Registration Form
@@ -49,13 +47,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
             event.preventDefault();
 
+            if (!registrationForm.checkValidity()) {
+                registrationForm.reportValidity();
+                return;
+            }
+
             formMessage.textContent =
-                "Thank you! Your demonstration registration was successful. No information has been sent or stored.";
+                "Thank you! Your demonstration profile is complete. No information has been sent or stored.";
+
+            formMessage.style.color = "#075c3b";
 
             registrationForm.reset();
-
         });
-
     }
 
     console.log("SkillBridge Africa website loaded successfully!");
